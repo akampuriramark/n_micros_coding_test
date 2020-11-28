@@ -1,0 +1,54 @@
+﻿@model Person
+@{
+    ViewData["Title"] = "EditPerson";
+}
+
+<form method="post" asp-action="EditPerson">
+    <input asp-for="Id" hidden /> 
+    <div class="border p-3">
+        <div class="form-group row">
+            <h1 class="text-info pl-3"> Edit Person</h1>
+        </div>
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-3"><label asp-for="FName"></label></div>
+                    <div class="col-3"><input asp-for="FName" class="form-control" /></div>
+                    <div class="col-3"><label asp-for="LName"></label></div>
+                    <div class="col-3"><input asp-for="LName" class="form-control" /></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3"><label asp-for="Status"></label></div>
+                    <div class="col-3"><input asp-for="Status" class="form-control" /></div>
+                    <div class="col-3">Address</div>
+                    <div class="col-3"><input asp-for="Address" class="form-control" /></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3"><label asp-for="BirthPlace"></label></div>
+                    <div class="col-3"><input asp-for="BirthPlace" class="form-control" /></div>
+                    <div class="col-3"><label asp-for="DateOfBirth"></label></div>
+                    <div class="col-3"><input asp-for="DateOfBirth" class="form-control" /></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-6 offset-3 row">
+                        <div class="col"><input type="submit" class="btn btn-info w-100" value="Update" /></div>
+                        <div class="col"><a asp-controller="Person" asp-action="Index" class="btn btn-success w-100">Back</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                @* Empty *@
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+
