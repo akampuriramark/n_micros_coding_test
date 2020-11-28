@@ -30,7 +30,7 @@ namespace AspCoreMVC.Controllers
             }
         }
 
-        private IEnumerable<Person> GetAllPeople()
+        public IEnumerable<Person> GetAllPeople()
         {
             return _db.Person;
         }
@@ -61,7 +61,7 @@ namespace AspCoreMVC.Controllers
             }
         }
 
-        private int SavePerson(Person person)
+        public int SavePerson(Person person)
         {
             _db.Add(person);
            return _db.SaveChanges();
@@ -88,7 +88,7 @@ namespace AspCoreMVC.Controllers
             }
         }
 
-        private Person FindPerson(int? id)
+        public Person FindPerson(int? id)
         {
             return _db.Person.Find(id);
         }
@@ -140,7 +140,7 @@ namespace AspCoreMVC.Controllers
             }
         }
 
-        private int RemovePerson(Person person)
+        public int RemovePerson(Person person)
         {
             _db.Remove(person);
             return _db.SaveChanges();
@@ -171,7 +171,7 @@ namespace AspCoreMVC.Controllers
 
         }
 
-        private int UpdatePerson(Person person)
+        public int UpdatePerson(Person person)
         {
             _db.Update(person);
             return _db.SaveChanges();
