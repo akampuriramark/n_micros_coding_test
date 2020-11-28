@@ -19,8 +19,20 @@ namespace AspCoreMVC.Controllers
         // View All People
         public IActionResult Index()
         {
-            IEnumerable<Person> personList = _db.Person;
-            return View(personList);
+            try
+            {
+                IEnumerable<Person> personList = GetAllPeople();
+                return View(personList);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Exception", ex);
+            }
+        }
+
+        private IEnumerable<Person> GetAllPeople()
+        {
+            return _db.Person;
         }
 
         // Load Form to creat Person
@@ -34,38 +46,73 @@ namespace AspCoreMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreatePerson(Person person)
         {
+            try
+            {
+                int rowsAffected = SavePerson(person);
+                if (rowsAffected < 1)
+                {
+                    // return redirect to view for a failed save action
+                }
+                return RedirectToAction("Index");
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction("Exception", ex);
+            }
+        }
+
+        private int SavePerson(Person person)
+        {
             _db.Add(person);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+           return _db.SaveChanges();
         }
         // Get Person to Edit
         public IActionResult EditPerson(int? id)
-        { 
-            if (id is < 1)
+        {
+            try
             {
-                return NotFound();
+                if (id is < 1)
+                {
+                    return NotFound();
+                }
+                var person = FindPerson(id);
+                if (person is null)
+                {
+                    return NotFound();
+                }
+                return View(person);
             }
-            var person = _db.Person.Find(id);
-            if (person is null)
+            catch(Exception ex)
             {
-                return NotFound(); 
+                return RedirectToAction("Exception", ex);
             }
-            return View(person);
+        }
+
+        private Person FindPerson(int? id)
+        {
+            return _db.Person.Find(id);
         }
 
         // Get Person to Delete
         public IActionResult DeletePerson(int? id)
         {
-            if (id is < 1)
+            try
             {
-                return NotFound();
+                if (id is < 1)
+                {
+                    return NotFound();
+                }
+                var person = FindPerson(id);
+                if (person is null)
+                {
+                    return NotFound();
+                }
+                return View(person);
             }
-            var person = _db.Person.Find(id);
-            if (person is null)
+            catch(Exception ex)
             {
-                return NotFound();
+                return RedirectToAction("Exception", ex);
             }
-            return View(person);
         }
 
         // Delete Person
@@ -73,14 +120,30 @@ namespace AspCoreMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePersonPost(int? id)
         {
-            var person = _db.Person.Find(id);
-            if (person is null)
+            try
             {
-                return NotFound();
+                var person = FindPerson(id);
+                if (person is null)
+                {
+                    return NotFound();
+                }
+                int rowsAffected = RemovePerson(person);
+                if (rowsAffected < 1)
+                {
+                    // // return redirect to view for a failed delete action
+                }
+                return RedirectToAction("Index");
             }
+            catch(Exception ex)
+            {
+                return RedirectToAction("Exception", ex);
+            }
+        }
+
+        private int RemovePerson(Person person)
+        {
             _db.Remove(person);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            return _db.SaveChanges();
         }
 
         // Update Person Details
@@ -88,13 +151,30 @@ namespace AspCoreMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditPerson(Person person)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _db.Update(person);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    int rowsAffected = UpdatePerson(person);
+                    if (rowsAffected < 1)
+                    {
+                        // // return redirect to view for a failed delete action
+                    }
+                    return RedirectToAction("Index");
+                }
+                return View(person);
             }
-            return View(person);
+            catch(Exception ex)
+            {
+                return RedirectToAction("Exception",ex);
+            }
+
+        }
+
+        private int UpdatePerson(Person person)
+        {
+            _db.Update(person);
+            return _db.SaveChanges();
         }
     }
 }
