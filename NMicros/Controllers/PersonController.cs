@@ -41,6 +41,11 @@ namespace AspCoreMVC.Controllers
             return View();
         }
 
+        public IActionResult Exception(Exception ex)
+        {
+            return View(ex);
+        }
+
         // Create Person 
         [HttpPost]
         [ValidateAntiForgeryToken]
