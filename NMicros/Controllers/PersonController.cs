@@ -26,7 +26,7 @@ namespace AspCoreMVC.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToAction("Exception", ex);
+                return View("Exception", ex);
             }
         }
 
@@ -39,11 +39,6 @@ namespace AspCoreMVC.Controllers
         public IActionResult CreatePerson()
         {
             return View();
-        }
-
-        public IActionResult Exception(Exception ex)
-        {
-            return View(ex);
         }
 
         // Create Person 
@@ -62,7 +57,7 @@ namespace AspCoreMVC.Controllers
             }
             catch(Exception ex)
             {
-                return RedirectToAction("Exception", ex);
+                return View("Exception", ex);
             }
         }
 
@@ -89,7 +84,7 @@ namespace AspCoreMVC.Controllers
             }
             catch(Exception ex)
             {
-                return RedirectToAction("Exception", ex);
+                return View("Exception", ex);
             }
         }
 
@@ -116,7 +111,7 @@ namespace AspCoreMVC.Controllers
             }
             catch(Exception ex)
             {
-                return RedirectToAction("Exception", ex);
+                return View("Exception", ex);
             }
         }
 
@@ -141,7 +136,7 @@ namespace AspCoreMVC.Controllers
             }
             catch(Exception ex)
             {
-                return RedirectToAction("Exception", ex);
+                return View("Exception", ex);
             }
         }
 
@@ -171,7 +166,7 @@ namespace AspCoreMVC.Controllers
             }
             catch(Exception ex)
             {
-                return RedirectToAction("Exception",ex);
+                return View("Exception", ex);
             }
 
         }
